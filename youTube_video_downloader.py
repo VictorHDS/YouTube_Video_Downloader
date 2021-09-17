@@ -1,6 +1,10 @@
 import pytube, time
-url = input('#> Enter the video link: ')
-yt = pytube.YouTube(url)
+from pytube.cli import on_progress
+url = input('Enter a YouTube video link: ')
+yt = pytube.YouTube(url, on_progress_callback=on_progress)
 print(f'The video is being downloaded | {yt.title}')
-video=yt.streams.first()
+print(yt.thumbnail_url)
+time.sleep(1)
+video=yt.streams.get_highest_resolution()
+time.sleep(1)
 video.download()
